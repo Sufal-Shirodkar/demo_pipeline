@@ -1,56 +1,76 @@
-// Jenkinsfile (Declarative Pipeline)
 pipeline {
+
     agent any
-    tools
-	{
-		maven 'MAVEN_HOME'
-	}
 
     stages {
+
         stage('Checkout') {
+
             steps {
-                // Change the git step to explicitly use the 'main' branch
-                git branch: 'main', url: 'https://github.com/Sufal-Shirodkar/demo_pipeline.git'
-                // NOTE: Since Jenkins has already checked out the Jenkinsfile
-                // and the code is now available, you may not need this stage at all.
-                // If you remove it, the build will proceed directly to 'Build'.
+
+                // Checkout your source code from version control
+
+                git 'https://github.com/Sufal-Shirodkar/demo_pipeline.git'
+
             }
+
         }
 
-
         stage('Build') {
+
             steps {
+
                 // Use Maven to build your project
+
                 sh 'mvn clean package'
+
             }
+
         }
 
         stage('Test') {
+
             steps {
+
                 // Run tests if applicable
+
                 sh 'mvn test'
+
             }
+
         }
 
-        // The error occurred here because the 'steps' block was empty.
         stage('Deploy') {
+
             steps {
+
                 // Deploy your artifact, if necessary
+
                 // Example: sh 'mvn deploy'
-                echo 'Skipping deployment for now to prevent the pipeline error.' 
+
             }
+
         }
+
+    }
+    post {
+
+        success {
+
+            // This block will be executed if the pipeline runs successfully
+
+            echo 'Pipeline executed successfully!'
+
+        }
+
+        failure {
+
+            // This block will be executed if the pipeline fails
+
+            echo 'Pipeline failed!'
+
+        }
+
     }
 
-    // Post-build actions for success or failure
-    post {
-        success {
-            // This block will be executed if the pipeline runs successfully
-            echo 'Pipeline executed successfully!'
-        }
-        failure {
-            // This block will be executed if the pipeline fails
-            echo 'Pipeline failed!'
-        }
-    }
 }
