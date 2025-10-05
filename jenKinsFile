@@ -1,18 +1,19 @@
 // Jenkinsfile (Declarative Pipeline)
-
 pipeline {
     agent any
 
     stages {
 
-        stage('Checkout') {
+               stage('Checkout') {
             steps {
-                // Checkout your source code from version control.
-                // NOTE: If you are using "Pipeline script from SCM" this step is often
-                // NOT needed as Jenkins does the checkout automatically.
-                git 'https://github.com/Sufal-Shirodkar/demo_pipeline.git'
+                // Change the git step to explicitly use the 'main' branch
+                git branch: 'main', url: 'https://github.com/Sufal-Shirodkar/demo_pipeline.git'
+                // NOTE: Since Jenkins has already checked out the Jenkinsfile
+                // and the code is now available, you may not need this stage at all.
+                // If you remove it, the build will proceed directly to 'Build'.
             }
         }
+
 
         stage('Build') {
             steps {
