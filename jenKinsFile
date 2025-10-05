@@ -1,15 +1,11 @@
 pipeline {
     agent any
-    tools
-	{
-		maven 'MAVEN_HOME'
-	}
     stages {
         stage('Checkout') {
             steps {
                 // Checkout your source code from version control
                 git branch: 'main',
-                    url: 'https://github.com/Sufal-Shirodkar/demo_pipeline.git'
+                 url: 'https://github.com/Sufal-Shirodkar/demo_pipeline.git'
             }
         }
         stage('Build') {
@@ -24,17 +20,8 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        stage('Deploy') {
-            steps {
-                // Deploy your artifact
-                echo 'Deploying application...'
-                // Uncomment when ready to deploy:
-                // sh 'mvn deploy'
-            }
-        }
     }
-    
-    post {
+        post {
         success {
             // This block will be executed if the pipeline runs successfully
             echo 'Pipeline executed successfully!'
@@ -43,5 +30,5 @@ pipeline {
             // This block will be executed if the pipeline fails
             echo 'Pipeline failed!'
         }
-    }
+        }
 }
