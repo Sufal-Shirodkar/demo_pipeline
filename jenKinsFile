@@ -3,15 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                // Since Jenkins already checks out the Jenkinsfile (as shown in your log), 
-                // this explicit 'git' step is often redundant and can be removed 
-                // unless you need a different repository or branch.
-                git 'https://github.com/Sufal-Shirodkar/demo_pipeline.git'
-            }
-        }
-
         stage('Build') {
             steps {
                 // Use Maven to build your project
